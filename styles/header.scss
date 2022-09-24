@@ -1,0 +1,34 @@
+@import 'variables.scss';
+@import 'breakpoints.scss';
+.header {
+  width: 100vw;
+  height: 60px;
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  background: $color-white;
+  @include desktop {
+    max-width: 1170px;
+  }
+  &_action {
+    display: flex;
+    justify-content: center;
+
+    margin-left: auto;
+  }
+  &_action__btn {
+    margin-left: 10px;
+    width: 50%;
+  }
+}
+.logo {
+  margin: 0;
+  display: flex;
+  @include mobile {
+    padding-left: 16px;
+  }
+  &__image {
+    height: 26px;
+    max-width: 104px;
+  }
+}

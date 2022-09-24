@@ -1,0 +1,157 @@
+@import 'variables.scss';
+@import 'breakpoints.scss';
+.footer {
+  padding: 0 16px;
+  font-family: 'Nunito';
+  @include desktop {
+    max-width: 1170px;
+  }
+  &__form-group {
+    padding-bottom: 100px;
+  }
+}
+
+.form {
+  &_positions {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 0;
+    justify-content: space-between;
+    @include mobile {
+      margin: auto;
+      max-width: 380px;
+      padding: 50px 0;
+    }
+    &_label {
+      display: inline-block;
+      position: relative;
+      padding-left: 30px;
+      font-size: 16px;
+      line-height: 26px;
+    }
+    &_item {
+      display: inline-block;
+    }
+    &_label:before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      position: absolute;
+      left: 0;
+      bottom: 1px;
+      background-color: $color-white-light;
+      border: 1px solid $color-grey;
+    }
+  }
+  &_label {
+    color: $color-dark-grey;
+    padding-left: 16px;
+    padding-top: 4px;
+    max-width: 137px;
+    height: 14px;
+    font-size: 12px;
+    @include mobile {
+      padding: 0;
+      padding-top: 4px;
+      margin-left: -207px;
+    }
+    @include desktop {
+      padding: 0;
+      padding-top: 4px;
+      margin-left: 16px;
+    }
+  }
+  &_positions .form_positions_label:before {
+    border-radius: 50%;
+  }
+  &_input {
+    max-width: 380px;
+    height: 54px;
+    margin-top: 50px;
+    border: 1px solid $color-grey;
+    border-radius: 4px;
+  }
+  &_input:nth-child(1) {
+    margin-top: 0px;
+  }
+  &_input-file {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 380px;
+    border-radius: 4px;
+    background: $color-light;
+    z-index: 0;
+    @include mobile {
+      margin: auto;
+    }
+  }
+  &_input-file-text {
+    display: flex;
+    align-items: center;
+    width: 134px;
+
+    padding-left: 16px;
+    height: 54px;
+    line-height: 26px;
+    background: $color-dark-white;
+    border: 1px solid $color-grey;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    float: right;
+    color: $text-color-light-grey;
+    flex: 2;
+  }
+  &_input-file-btn {
+    position: relative;
+    display: flex;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Nunito';
+    color: $text-color-black;
+    text-align: center;
+    line-height: 26px;
+    padding: 14px 15px;
+    border: 1px solid $text-color-black;
+    border-radius: 4px 0px 0px 4px;
+    z-index: 1;
+  }
+}
+
+input[type='radio']:checked + .form_positions_label:before {
+  content: '\2022';
+  color: $color-light-blue;
+  font-size: 32px;
+  text-align: center;
+  line-height: 16px;
+  border: 1px solid $color-blue;
+}
+
+.form_input-file input[type='file'] {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
+}
+.form-submit__btn {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 50px auto 0;
+}
+.form__group {
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  @include desktop {
+    display: flex;
+    flex-direction: column;
+  }
+}

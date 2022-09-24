@@ -1,0 +1,55 @@
+@import 'breakpoints.scss';
+@import 'variables.scss';
+
+.headline {
+  position: relative;
+  width: 100vw;
+  height: 500px;
+  @include desktop {
+    max-width: 1170px;
+  }
+  &__banner {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+  &__content {
+    position: absolute;
+    padding: 40px 16px;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    color: $color-white;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    z-index: 1;
+    @include mobile {
+      padding: 0;
+    }
+    &_article {
+      margin: auto;
+      max-width: 380px;
+    }
+    &_article-title {
+      line-height: 40px;
+      font-size: 40px;
+      font-weight: 400;
+      @include mobile {
+        margin: 89px auto 21px;
+      }
+    }
+    &_article-description {
+      font-size: 16px;
+      @include mobile {
+        margin: 0 auto;
+      }
+    }
+  }
+  &__action_btn {
+    margin-top: 32px;
+    @include mobile {
+      margin-top: 36px;
+    }
+  }
+}

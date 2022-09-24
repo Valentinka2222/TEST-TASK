@@ -1,0 +1,47 @@
+@import 'variables.scss';
+.btn {
+  height: 34px;
+  max-width: 100px;
+  font-size: 16px;
+  line-height: 34px;
+  border: none;
+  border-radius: 80px;
+  color: $text-color-black;
+  background-color: $color-yellow;
+  text-align: center;
+}
+.title {
+  padding: 140px 16px 50px;
+  line-height: 40px;
+  font-size: 40px;
+  font-weight: 400;
+  text-align: center;
+  margin: 0;
+}
+input {
+  height: 54px;
+  width: 100%;
+  background: $color-dark-white;
+  border: 1px solid $color-grey;
+  border-radius: 4px;
+  padding-left: 16px;
+  color: $color-dark-grey;
+}
+legend {
+  padding-bottom: 7px;
+}
+input[type='radio'] {
+  display: none;
+}
+.registr {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  &__logo-success {
+    max-width: 328px;
+    max-height: 290px;
+  }
+  &__title {
+    margin-bottom: 50px;
+  }
+}
