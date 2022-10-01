@@ -17,21 +17,6 @@
     flex-direction: column;
     padding: 25px 0;
     justify-content: space-between;
-    @include mobile {
-      margin: auto;
-      max-width: 380px;
-      padding: 50px 0;
-    }
-    &_label {
-      display: inline-block;
-      position: relative;
-      padding-left: 30px;
-      font-size: 16px;
-      line-height: 26px;
-    }
-    &_item {
-      display: inline-block;
-    }
     &_label:before {
       content: '';
       display: inline-block;
@@ -44,6 +29,29 @@
       background-color: $color-white-light;
       border: 1px solid $color-grey;
     }
+    @include mobile {
+      margin: auto;
+      max-width: 380px;
+      padding: 50px 0;
+    }
+    @include laptop {
+      margin: auto;
+      max-width: 380px;
+    }
+    @include desktop {
+      margin: auto;
+      max-width: 380px;
+    }
+    &_label {
+      display: inline-block;
+      position: relative;
+      padding-left: 30px;
+      font-size: 16px;
+      line-height: 26px;
+    }
+    &_item {
+      display: inline-block;
+    }
   }
   &_label {
     color: $color-dark-grey;
@@ -52,15 +60,21 @@
     max-width: 137px;
     height: 14px;
     font-size: 12px;
+
     @include mobile {
       padding: 0;
       padding-top: 4px;
-      margin-left: -207px;
+      margin-left: -214px;
+    }
+    @include laptop {
+      padding: 0;
+      padding-top: 4px;
+      margin-left: -214px;
     }
     @include desktop {
       padding: 0;
       padding-top: 4px;
-      margin-left: 16px;
+      margin-left: -214px;
     }
   }
   &_positions .form_positions_label:before {
@@ -73,13 +87,14 @@
     border: 1px solid $color-grey;
     border-radius: 4px;
   }
-  &_input:nth-child(1) {
-    margin-top: 0px;
+  &_input:nth-child(4) {
+    margin-top: 32px;
   }
   &_input-file {
     position: relative;
     display: flex;
     align-items: center;
+    height: 54px;
     max-width: 380px;
     border-radius: 4px;
     background: $color-light;
@@ -87,12 +102,17 @@
     @include mobile {
       margin: auto;
     }
+    @include laptop {
+      margin: auto;
+    }
+    @include desktop {
+      margin: auto;
+    }
   }
   &_input-file-text {
     display: flex;
     align-items: center;
     width: 134px;
-
     padding-left: 16px;
     height: 54px;
     line-height: 26px;
@@ -112,21 +132,12 @@
     font-family: 'Nunito';
     color: $text-color-black;
     text-align: center;
-    line-height: 26px;
+    line-height: 24px;
     padding: 14px 15px;
     border: 1px solid $text-color-black;
     border-radius: 4px 0px 0px 4px;
     z-index: 1;
   }
-}
-
-input[type='radio']:checked + .form_positions_label:before {
-  content: '\2022';
-  color: $color-light-blue;
-  font-size: 32px;
-  text-align: center;
-  line-height: 16px;
-  border: 1px solid $color-blue;
 }
 
 .form_input-file input[type='file'] {
@@ -150,8 +161,41 @@ input[type='radio']:checked + .form_positions_label:before {
     justify-content: center;
     align-items: center;
   }
+  @include laptop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   @include desktop {
     display: flex;
     flex-direction: column;
   }
+}
+input[type='radio'] {
+  display: none;
+}
+input[type='radio']:checked + .form_positions_label:before {
+  content: '\2022';
+  color: $color-light-blue;
+  font-size: 32px;
+  text-align: center;
+  line-height: 16px;
+  border: 1px solid $color-blue;
+}
+.user-avatar {
+  height: 100%;
+  width: 56px;
+  padding: 0;
+}
+.container-img {
+  margin: auto;
+  padding: 0;
+  height: 54px;
+  width: 54px;
+  border: 1px solid $color-grey;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  position: relative;
+  display: flex;
 }

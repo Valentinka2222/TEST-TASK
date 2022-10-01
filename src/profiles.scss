@@ -7,14 +7,19 @@
     max-width: 1170px;
   }
   &__cards {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
     padding: 0 16px;
-    flex-wrap: wrap;
     text-align: center;
     @include mobile {
+      grid-template-columns: 1fr 1fr;
       width: 100vw;
     }
+    @include laptop {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
     @include desktop {
+      grid-template-columns: 1fr 1fr 1fr;
       max-width: 1170px;
     }
   }
@@ -47,8 +52,8 @@
     }
     &_avatar {
       display: flex;
-      width: 70px;
-      height: 70px;
+      min-width: 70px;
+      min-height: 70px;
       margin: 20px auto;
     }
     &_name {
@@ -71,16 +76,22 @@
   &__btn {
     display: flex;
     justify-content: center;
-    width: 120px !important;
+
     @include mobile {
       margin-top: 34px;
       margin: 0 auto;
+      width: 120px !important;
     }
     @include desktop {
       margin: 0 auto;
+      width: 120px !important;
     }
     @include laptop {
       margin: 0 auto;
+      width: 120px !important;
     }
   }
+}
+.disabled-btn {
+  background-color: rgba(180, 180, 180, 1);
 }

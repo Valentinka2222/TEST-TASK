@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+let qs = require('query-string');
 const webpack = require('webpack');
 
 module.exports = (env, argv) => {
@@ -25,6 +26,12 @@ module.exports = (env, argv) => {
             'css-loader',
             'sass-loader',
           ],
+        },
+        {
+          test: /\.(png|jpg|svg|jpeg)$/,
+
+          loader: 'file-loader',
+          loader: 'url-loader',
         },
       ],
     },
