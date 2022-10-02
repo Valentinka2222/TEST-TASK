@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 export const FormLoadFile = () => {
   const [selectedFile, setselectedFile] = useState({});
-  console.log(selectedFile);
   const onChange = event => {
     event.preventDefault();
     if (!event.target.files[0].name.match(/\.(jpg|jpeg|png|gif)$/)) {

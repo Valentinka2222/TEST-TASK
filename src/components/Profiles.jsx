@@ -1,13 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import Card from './Card';
-import {
-  getUsersList,
-  getPositions,
-  getUsersListByPage,
-  getUsersCount,
-} from '../users/users.action';
+import { getUsersList, getUsersListByPage } from '../users/users.action';
 import { Component } from 'react';
 
 class Profiles extends Component {
@@ -19,34 +13,25 @@ class Profiles extends Component {
   }
 
   componentDidMount() {
-    this.props.getUsersCount();
-    this.props.getPositions();
-
-    console.log(this.props.count);
-    if (this.props.count <= 5) {
-      this.props.getUsersList();
-      this.props.getUsersListByPage(this.props.next_url);
-    }
+    this.props.getUsersList();
   }
 
   onclick = () => {
-    this.props.getUsersListByPage(this.props.next_url).catch(e => {
-      if (e.message === 'Page not found') {
-        this.setState({
-          isShow: true,
-        });
-      }
+    const { next_url, getUsersListByPage } = this.props;
+    getUsersListByPage(next_url).catch(e => {
+      console.log(e);
     });
+    if (next_url === null) {
+      this.setState({
+        isShow: true,
+      });
+    }
   };
 
   render() {
     const usersList = this.props.usersList.users;
     const newUsers = [...new Set(usersList.newUsers)];
-
-    // const isPrevPageAvailable = currentPage === 0;
-    // const isNextPageAvailable =
-    //   currentPage > Math.ceil(totalItems / itemsPerPage) + 1 || totalItems === 0;
-    console.log(newUsers);
+    const { isShow } = this.state;
     return (
       <section className="profiles">
         <h1 className="title">Working with GET request</h1>
@@ -56,9 +41,9 @@ class Profiles extends Component {
           ))}
         </div>
         <button
-          className={!this.state.isShow ? 'profiles__btn btn' : ' disabled-btn profiles__btn btn'}
+          className={isShow ? 'profiles__btn btn' : ' disabled-btn profiles__btn'}
           onClick={this.onclick}
-          disabled={this.state.isShow}
+          disabled={isShow}
         >
           Show more
         </button>
@@ -67,18 +52,13 @@ class Profiles extends Component {
   }
 }
 const mapDispatch = {
-  getUsersList,
   getUsersListByPage,
-  getPositions,
-  getUsersCount,
+  getUsersList,
 };
 
 const mapState = state => {
-  console.log(state);
   return {
     usersList: state,
-    currentPage: state.currentPage,
-    totalItems: state.totalItems,
     next_url: state.users.next_url,
     count: state.users.count,
   };

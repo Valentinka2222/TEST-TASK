@@ -5,7 +5,7 @@ export const SHOW_MORE = 'USERS/SHOW_MORE';
 export const POSITIONS = 'USERS/POSITIONS';
 export const USERS_COUNT = 'USERS/USERS_COUNT';
 
-export const getPageCount = users => {
+export const getData = users => {
   const action = {
     type: USERS_COUNT,
     users,
@@ -34,25 +34,16 @@ export const positionsRecieved = positions => {
   };
 };
 
-export const getUsersCount = () => dispatch => {
-  getUsers().then(usersList => {
-    console.log(usersList);
-    dispatch(getPageCount(usersList));
-  });
-};
-
 export const getUsersList = () => dispatch => {
   getUsers().then(usersList => {
     dispatch(usersListRecieved(usersList));
-    dispatch(showMore(usersList));
+    dispatch(getData(usersList));
   });
 };
+
 export const getUsersListByPage = url => dispatch =>
   getUsersByPage(url).then(usersList => {
-    dispatch(usersListRecieved(usersList));
     dispatch(showMore(usersList));
   });
 export const getPositions = () => dispatch =>
-  сreateUserPositions().then(positionsList => {
-    dispatch(positionsRecieved(positionsList));
-  });
+  сreateUserPositions().then(positionsList => dispatch(positionsRecieved(positionsList)));

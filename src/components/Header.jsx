@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import Logo from './images/Logo.svg';
 import { connect } from 'react-redux';
-import { getPositions } from '../users/users.action';
+import { getPositions, getUsersListByPage, getUsersList } from '../users/users.action';
 
 class Header extends Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
+    this.props.getUsersList();
     this.props.getPositions();
   }
 
   handleClick = e => {
-    if (e.target.dataset.id === 'users') {
-      this.props.setIsShowUsers(!this.props.isShowUsers);
+    const { id } = e.target.dataset;
+    const { isShowUsers, isShowAuth, getUsersListByPage, setIsShowUsers, setIsShowAuth } =
+      this.props;
+    getUsersListByPage(isShowUsers);
+    if (id === 'users') {
+      setIsShowUsers(!isShowUsers);
     }
-    if (e.target.dataset.id === 'sign') {
-      this.props.setIsShowAuth(!this.props.isShowAuth);
+    if (id === 'sign') {
+      setIsShowAuth(!isShowAuth);
     }
   };
   render() {
@@ -26,18 +31,10 @@ class Header extends Component {
           <img className="logo__image" src={Logo} alt="logo" />
         </div>
         <div className="header_action">
-          <button
-            className="header_action__btn btn"
-            data-id="users"
-            onClick={e => this.handleClick(e)}
-          >
+          <button className="header_action__btn btn" data-id="users" onClick={this.handleClick}>
             Users
           </button>
-          <button
-            className="header_action__btn btn"
-            data-id="sign"
-            onClick={e => this.handleClick(e)}
-          >
+          <button className="header_action__btn btn" data-id="sign" onClick={this.handleClick}>
             Sign up
           </button>
         </div>
@@ -46,12 +43,14 @@ class Header extends Component {
   }
 }
 const mapDispatch = {
+  getUsersList,
+  getUsersListByPage,
   getPositions,
 };
 const mapState = state => {
-  console.log(state);
   return {
     positions: state.users.positions,
+    next_url: state.users.next_url,
   };
 };
 export default connect(mapState, mapDispatch)(Header);

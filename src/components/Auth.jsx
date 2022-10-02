@@ -3,7 +3,7 @@ import RadioInput from './RadioInput';
 import { connect } from 'react-redux';
 import { saveToken } from '../users/api';
 import { getToken, сreateUser } from '../users/getaway';
-import { getUsersList, getUsersListByPage, getPositions } from '../users/users.action';
+import { getUsersListByPage, getPositions } from '../users/users.action';
 import { validatePhoneNumber, validateEmail, validatePositionId } from '../validators/validators';
 import FormLoadFile from './FormLoadFile';
 const Auth = ({ positions }) => {
@@ -20,6 +20,9 @@ const Auth = ({ positions }) => {
     marginBottom: '4px',
   };
   const [selectedOption, setSelectedOption] = useState('');
+  const [errorEmail, setErrorEmail] = useState(null);
+  const [errorPhone, setErrorPhone] = useState(null);
+  const [token, setToken] = useState('');
   const [updatedUser, setUpdatedUser] = useState({
     photo: '',
     name: '',
@@ -29,35 +32,29 @@ const Auth = ({ positions }) => {
     position_id: 1,
     registration_timestamp: new Date().getTime(),
   });
-  const [errorEmail, setErrorEmail] = useState(null);
-  const [errorPhone, setErrorPhone] = useState(null);
-  const [token, setToken] = useState('');
-  console.log(positions);
   useEffect(() => {
     getToken().then(res => {
       setToken(res.token);
       saveToken(res.token);
     });
   }, []);
-  0;
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    await сreateUser(updatedUser, token);
+    сreateUser(updatedUser, token);
   };
 
   const handleChange = event => {
     event.preventDefault();
-
     const { name, value } = event.target;
 
     setUpdatedUser(prevState => ({
       ...prevState,
       [name]: value,
     }));
-    if (name === 'phone' && !validatePhoneNumber(event.target.value)) {
+    if (name === 'phone' && !validatePhoneNumber(value)) {
       setErrorPhone('Error phone');
-    } else if (name === 'email' && !validateEmail(event.target.value)) {
+    } else if (name === 'email' && !validateEmail(value)) {
       setErrorEmail('Error email');
     } else {
       setErrorEmail(null);
@@ -66,14 +63,15 @@ const Auth = ({ positions }) => {
   };
 
   const handleOnClick = e => {
-    console.log(updatedUser);
-    setSelectedOption(e.target.dataset.position);
-    if (validatePositionId(e.target.dataset.id)) {
+    const { position, id } = e.target.dataset;
+
+    setSelectedOption(position);
+    if (validatePositionId(id)) {
     }
     setUpdatedUser({
       ...updatedUser,
-      position: e.target.dataset.position,
-      position_id: e.target.dataset.id,
+      position: position,
+      position_id: id,
     });
   };
 
@@ -81,7 +79,7 @@ const Auth = ({ positions }) => {
     <footer className="footer">
       <h1 className="title">Working with POST request</h1>
       <div className="footer__form-group">
-        <form id="form" method="post" className="form" onSubmit={e => handleSubmit(e)}>
+        <form id="form" method="post" className="form" onSubmit={handleSubmit}>
           <div className="form__group">
             <input
               required
@@ -146,7 +144,6 @@ const Auth = ({ positions }) => {
   );
 };
 const mapDispatch = {
-  getUsersList,
   getUsersListByPage,
   getPositions,
 };

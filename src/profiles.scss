@@ -93,5 +93,16 @@
   }
 }
 .disabled-btn {
+  height: 34px;
+  max-width: 100px;
+  font-size: 16px;
+  line-height: 34px;
+  border: none;
+  border-radius: 80px;
+  color: $card-color-white;
   background-color: rgba(180, 180, 180, 1);
+  text-align: center;
+  @include laptop {
+    width: 100px;
+  }
 }

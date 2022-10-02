@@ -5,9 +5,6 @@ const initialState = {
   positions: [],
   prev_url: '',
   next_url: '',
-  totalItems: 0,
-  count: 0,
-  currentPage: 0,
   date: '',
   newUsers: [],
 };
@@ -15,8 +12,10 @@ const initialState = {
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case USERS_COUNT: {
+      state.users.length = 6;
       return {
         ...state,
+        date: action.users.users['registration_timestamp'],
         count: action.users.count,
         next_url: action.users['links']['next_url'],
         users: action.users.users.sort((a, b) => new Date(a.date) - new Date(b.date)),
@@ -24,38 +23,22 @@ const usersReducer = (state = initialState, action) => {
     }
 
     case USERS_LIST: {
-      // console.log(action.users['count']);
-      // const Url = new URL(state.next_url);
-      // const parsed = qs.parse(Url.search);
-      // const newPage = Number(parsed.page);
-      // Url.searchParams.delete('count');
-      // Url.searchParams.set('page', newPage);
+      state.newUsers.length = 6;
       console.log(action.users.count);
       return {
         ...state,
-        date: action.users.users['registration_timestamp'],
-        newUsers: state.users.concat(
-          action.users.users.filter(({ id }) => !state.users.includes(id)),
-        ),
-        totalItems: action.users['total_users'],
-        next_url: action.users['links']['next_url'],
-        prev_url: action.users['links']['prev_url'],
-        count: action.users.count,
-        currentPage: action.users['page'],
+        newUsers: action.users.users
+          .concat(state.newUsers.filter(({ id }) => !state.newUsers.includes(id)))
+          .slice(0, 6),
       };
     }
     case SHOW_MORE: {
-      if (state.newUsers.length > 0) {
-        state.users = state.newUsers;
-      }
-
       return {
         ...state,
-        newUsers: state.users.concat(
-          action.users.users.filter(({ id }) => !state.users.includes(id)),
-        ),
+        newUsers: action.users.users
+          .concat(state.newUsers.filter(({ id }) => !state.newUsers.includes(id)))
+          .slice(0, 6),
         next_url: action.users['links']['next_url'],
-        currentPage: state.currentPage,
       };
     }
     case POSITIONS: {
