@@ -2,7 +2,7 @@ import { saveToken } from './api';
 
 const baseUrl = 'https://frontend-test-assignment-api.abz.agency/api/v1';
 
-export const getUsers = () => {
+export const getUsers = async () => {
   return fetch(`${baseUrl}/users`).then(res => {
     if (res.ok) {
       return res.json();
@@ -11,7 +11,7 @@ export const getUsers = () => {
     }
   });
 };
-export const getUsersByPage = newUrl =>
+export const getUsersByPage = async newUrl =>
   fetch(`${newUrl}`).then(res => {
     if (res.ok) {
       return res.json();
@@ -44,7 +44,7 @@ export const сreateUserPositions = async () => {
     }
   });
 };
-export const getToken = () =>
+export const getToken = async () =>
   fetch(`${baseUrl}/token`)
     .then(function (response) {
       return response.json();

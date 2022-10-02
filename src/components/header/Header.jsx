@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import Logo from './images/Logo.svg';
 import { connect } from 'react-redux';
-import { getPositions, getUsersListByPage, getUsersList } from '../users/users.action';
+import PropTypes from 'prop-types';
+import { getPositions, getUsersListByPage, getUsersList } from '../../modules/users.action';
+import Logo from '../images/Logo.svg';
+import './header.scss';
 
 class Header extends Component {
   constructor(props) {
@@ -50,5 +52,16 @@ const mapState = state => {
     positions: state.users.positions,
     next_url: state.users.next_url,
   };
+};
+Header.propTypes = {
+  getUsersList: PropTypes.func,
+  getUsersListByPage: PropTypes.func,
+  getPositions: PropTypes.func,
+  positions: PropTypes.array,
+  next_url: PropTypes.string,
+  isShowUsers: PropTypes.bool,
+  isShowAuth: PropTypes.bool,
+  setIsShowUsers: PropTypes.func,
+  setIsShowAuth: PropTypes.func,
 };
 export default connect(mapState, mapDispatch)(Header);

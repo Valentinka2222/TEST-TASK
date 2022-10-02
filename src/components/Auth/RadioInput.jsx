@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const RadioInput = ({ name, id, selectedOption }) => {
   return (
@@ -17,5 +18,10 @@ export const RadioInput = ({ name, id, selectedOption }) => {
       </label>
     </div>
   );
+};
+RadioInput.propTypes = {
+  selectedOption: PropTypes.string,
+  id: PropTypes.number,
+  name: PropTypes.string,
 };
 export default RadioInput;

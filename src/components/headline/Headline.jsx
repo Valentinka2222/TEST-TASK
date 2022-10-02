@@ -1,5 +1,7 @@
 import React from 'react';
-import Pexels from './images/pexels.jpeg';
+import PropTypes from 'prop-types';
+import Pexels from '../images/pexels.jpeg';
+import './headline.scss';
 
 const Headline = ({ setIsShowAuth }) => {
   return (
@@ -26,5 +28,8 @@ const Headline = ({ setIsShowAuth }) => {
       <img className="headline__banner" src={Pexels} alt="Headline Barner" />
     </section>
   );
+};
+Headline.propTypes = {
+  setIsShowAuth: PropTypes.func,
 };
 export default Headline;

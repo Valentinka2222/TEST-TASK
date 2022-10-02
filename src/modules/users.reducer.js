@@ -18,26 +18,26 @@ const usersReducer = (state = initialState, action) => {
         date: action.users.users['registration_timestamp'],
         count: action.users.count,
         next_url: action.users['links']['next_url'],
-        users: action.users.users.sort((a, b) => new Date(a.date) - new Date(b.date)),
+        users: action.users.users
+          .sort((a, b) => new Date(a.date) - new Date(b.date))
+          .concat(action.users.users),
       };
     }
 
     case USERS_LIST: {
-      state.newUsers.length = 6;
       return {
         ...state,
         next_url: action.users['links']['next_url'],
-        newUsers: action.users.users
-          .concat(state.newUsers.filter(({ id }) => !state.newUsers.includes(id)))
-          .slice(0, 6),
+        newUsers: action.users.users.concat(state.users),
       };
     }
     case SHOW_MORE: {
       state.newUsers.length = 6;
       return {
         ...state,
+        newUsers: action.users.users,
         newUsers: action.users.users
-          .concat(state.newUsers.filter(({ id }) => !state.newUsers.includes(id)))
+          .concat(state.newUsers.filter(({ id }) => !action.users.users.includes(id)))
           .slice(0, 6),
         next_url: action.users['links']['next_url'],
       };

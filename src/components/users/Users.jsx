@@ -1,25 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Card from './Card';
-import { getUsersList, getUsersListByPage } from '../users/users.action';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
+import { getUsersList, getUsersListByPage } from '../../modules/users.action';
+import Card from './Card';
+import './users.scss';
 
-class Profiles extends Component {
+class Users extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isShow: false,
+      isLoaded: true,
     };
   }
 
   componentDidMount() {
-    this.props.getUsersList();
+    setTimeout(() => {
+      this.setState({
+        isLoaded: false,
+      });
+    }, 2000);
+  }
+  componentWillUnmount() {
+    this.setState({
+      isLoaded: false,
+    });
   }
 
   onclick = () => {
     const { next_url, getUsersListByPage } = this.props;
     getUsersListByPage(next_url).catch(e => {
-      console.log(e);
+      console.error(e);
     });
     if (next_url === null) {
       this.setState({
@@ -32,13 +44,12 @@ class Profiles extends Component {
     const usersList = this.props.usersList.users;
     const newUsers = [...new Set(usersList.newUsers)];
     const { isShow } = this.state;
-    console.log(newUsers);
     return (
       <section className="profiles">
         <h1 className="title">Working with GET request</h1>
         <div className="profiles__cards">
           {newUsers.map(users => (
-            <Card key={users.id} {...users} />
+            <Card key={users.id} {...users} isLoaded={this.state.isLoaded} />
           ))}
         </div>
         <button
@@ -64,5 +75,11 @@ const mapState = state => {
     count: state.users.count,
   };
 };
+Users.propTypes = {
+  getUsersList: PropTypes.func,
+  getUsersListByPage: PropTypes.func,
+  next_url: PropTypes.string,
+  usersList: PropTypes.object,
+};
 
-export default connect(mapState, mapDispatch)(Profiles);
+export default connect(mapState, mapDispatch)(Users);

@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import RadioInput from './RadioInput';
 import { connect } from 'react-redux';
-import { saveToken } from '../users/api';
-import { getToken, сreateUser } from '../users/getaway';
-import { getUsersListByPage, getPositions } from '../users/users.action';
-import { validatePhoneNumber, validateEmail, validatePositionId } from '../validators/validators';
+import PropTypes from 'prop-types';
+import { saveToken } from '../../modules/api';
+import { getToken, сreateUser } from '../../modules/getaway';
+import { getUsersListByPage, getPositions } from '../../modules/users.action';
+import {
+  validatePhoneNumber,
+  validateEmail,
+  validatePositionId,
+} from '../../validators/validators';
+import RadioInput from './RadioInput';
 import FormLoadFile from './FormLoadFile';
+import './footer.scss';
+
 const Auth = ({ positions }) => {
   const style = {
     fontFamily: 'Asap',
@@ -150,10 +157,11 @@ const mapDispatch = {
 
 const mapState = state => {
   return {
-    usersList: state,
-    totalItems: state.totalItems,
-    url: state.users.url,
     positions: state.users.positions,
   };
+};
+
+Auth.propTypes = {
+  positions: PropTypes.array,
 };
 export default connect(mapState, mapDispatch)(Auth);

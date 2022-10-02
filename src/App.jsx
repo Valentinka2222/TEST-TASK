@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Provider } from 'react-redux';
-import { Routes } from 'react-router-dom';
-import Header from './components/Header';
-import Headline from './components/Heardline';
-import Auth from './components/Auth';
-import Profiles from './components/Profiles';
+import Header from './components/header/Header';
+import Headline from './components/headline/Headline';
+import Auth from './components/Auth/Auth';
+import Users from './components/users/Users';
 import store from './store';
 import './index.scss';
 
@@ -24,7 +23,7 @@ const App = () => {
           />
 
           <Headline setIsShowAuth={setIsShowAuth} />
-          {isShowUsers ? <Profiles /> : null}
+          {isShowUsers ? <Users /> : null}
           {isShowAuth ? <Auth /> : null}
         </div>
       </main>

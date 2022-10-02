@@ -39,6 +39,7 @@
   "dependencies": {
     "core-js": "^3.18.1",
     "formik": "^2.2.9",
+    "prop-types": "^15.8.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-redux": "^7.2.8",
