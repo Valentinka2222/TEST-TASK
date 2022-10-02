@@ -24,15 +24,16 @@ const usersReducer = (state = initialState, action) => {
 
     case USERS_LIST: {
       state.newUsers.length = 6;
-      console.log(action.users.count);
       return {
         ...state,
+        next_url: action.users['links']['next_url'],
         newUsers: action.users.users
           .concat(state.newUsers.filter(({ id }) => !state.newUsers.includes(id)))
           .slice(0, 6),
       };
     }
     case SHOW_MORE: {
+      state.newUsers.length = 6;
       return {
         ...state,
         newUsers: action.users.users

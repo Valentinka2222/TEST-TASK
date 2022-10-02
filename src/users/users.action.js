@@ -42,8 +42,6 @@ export const getUsersList = () => dispatch => {
 };
 
 export const getUsersListByPage = url => dispatch =>
-  getUsersByPage(url).then(usersList => {
-    dispatch(showMore(usersList));
-  });
+  getUsersByPage(url).then(usersList => dispatch(showMore(usersList)));
 export const getPositions = () => dispatch =>
   сreateUserPositions().then(positionsList => dispatch(positionsRecieved(positionsList)));

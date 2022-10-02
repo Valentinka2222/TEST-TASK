@@ -14,14 +14,12 @@ class Header extends Component {
 
   handleClick = e => {
     const { id } = e.target.dataset;
-    const { isShowUsers, isShowAuth, getUsersListByPage, setIsShowUsers, setIsShowAuth } =
-      this.props;
-    getUsersListByPage(isShowUsers);
+    this.props.getUsersListByPage(this.props.next_url);
     if (id === 'users') {
-      setIsShowUsers(!isShowUsers);
+      this.props.setIsShowUsers(!this.props.isShowUsers);
     }
     if (id === 'sign') {
-      setIsShowAuth(!isShowAuth);
+      this.props.setIsShowAuth(!this.props.isShowAuth);
     }
   };
   render() {

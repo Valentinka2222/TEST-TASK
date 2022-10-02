@@ -32,6 +32,7 @@ class Profiles extends Component {
     const usersList = this.props.usersList.users;
     const newUsers = [...new Set(usersList.newUsers)];
     const { isShow } = this.state;
+    console.log(newUsers);
     return (
       <section className="profiles">
         <h1 className="title">Working with GET request</h1>
@@ -41,7 +42,7 @@ class Profiles extends Component {
           ))}
         </div>
         <button
-          className={isShow ? 'profiles__btn btn' : ' disabled-btn profiles__btn'}
+          className={!isShow ? 'profiles__btn btn' : ' disabled-btn profiles__btn'}
           onClick={this.onclick}
           disabled={isShow}
         >
