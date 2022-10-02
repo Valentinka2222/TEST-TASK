@@ -7,6 +7,8 @@ const initialState = {
   next_url: '',
   date: '',
   newUsers: [],
+  total_pages: 0,
+  page: 0,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -15,6 +17,8 @@ const usersReducer = (state = initialState, action) => {
       state.users.length = 6;
       return {
         ...state,
+        total_pages: action.users.total_pages,
+        page: action.users.page,
         date: action.users.users['registration_timestamp'],
         count: action.users.count,
         next_url: action.users['links']['next_url'],

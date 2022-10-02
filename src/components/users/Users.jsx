@@ -4,6 +4,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getUsersList, getUsersListByPage } from '../../modules/users.action';
 import Card from './Card';
+import * as qs from 'query-string';
 import './users.scss';
 
 class Users extends Component {
@@ -29,15 +30,17 @@ class Users extends Component {
   }
 
   onclick = () => {
-    const { next_url, getUsersListByPage } = this.props;
-    getUsersListByPage(next_url).catch(e => {
-      console.error(e);
-    });
-    if (next_url === null) {
+    const { next_url, getUsersListByPage, total_pages } = this.props;
+    const Url = new URL(next_url);
+    const parsed = qs.parse(Url.search);
+    const newPage = Number(parsed.page);
+
+    if (total_pages === newPage) {
       this.setState({
         isShow: true,
       });
     }
+    getUsersListByPage(next_url);
   };
 
   render() {
@@ -53,7 +56,7 @@ class Users extends Component {
           ))}
         </div>
         <button
-          className={!isShow ? 'profiles__btn btn' : ' disabled-btn profiles__btn'}
+          className={!isShow ? 'profiles__btn btn' : ' disabled-btn profiles__btn '}
           onClick={this.onclick}
           disabled={isShow}
         >
@@ -73,6 +76,8 @@ const mapState = state => {
     usersList: state,
     next_url: state.users.next_url,
     count: state.users.count,
+    page: state.users.page,
+    total_pages: state.users.total_pages,
   };
 };
 Users.propTypes = {
