@@ -95,8 +95,7 @@ const Auth = ({ positions }) => {
               className="form_input"
               type="text"
               name="name"
-              minLength="2"
-              maxLength="60"
+              pattern="[a-zA-Z]{2,}"
               placeholder="Name"
             />
             <input
@@ -144,7 +143,7 @@ const Auth = ({ positions }) => {
             ))}
           </div>
           <FormLoadFile setUpdatedUser={setUpdatedUser} />
-          <input id="register" type="submit" className="form-submit__btn btn"></input>
+          <input required id="register" type="submit" className="form-submit__btn btn"></input>
         </form>
       </div>
     </footer>

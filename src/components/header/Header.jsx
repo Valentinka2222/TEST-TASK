@@ -59,8 +59,6 @@ Header.propTypes = {
   getPositions: PropTypes.func,
   positions: PropTypes.array,
   next_url: PropTypes.string,
-  isShowUsers: PropTypes.bool,
-  isShowAuth: PropTypes.bool,
   setIsShowUsers: PropTypes.func,
   setIsShowAuth: PropTypes.func,
 };
