@@ -37,12 +37,13 @@ const Auth = ({ positions }) => {
     position: '',
     phone: '',
     position_id: 1,
-    registration_timestamp: new Date().getTime(),
+    // registration_timestamp: new Date().getTime(),
   });
   useEffect(() => {
     getToken().then(res => {
-      setToken(res.token);
       saveToken(res.token);
+      setToken(localStorage.tokenData);
+      console.log(localStorage.tokenData);
     });
   }, []);
 

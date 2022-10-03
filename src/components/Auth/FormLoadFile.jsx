@@ -16,7 +16,7 @@ export const FormLoadFile = () => {
       alert('Nothing download');
     }
 
-    if (!event.target.files[0].size > 5120000) {
+    if (!event.target.files[0].size > 5242880) {
       alert('File size cannot more than 5MB');
     }
 
