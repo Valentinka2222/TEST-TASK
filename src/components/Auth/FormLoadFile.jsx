@@ -18,6 +18,7 @@ export const FormLoadFile = () => {
 
     if (!event.target.files[0].size > 5242880) {
       alert('File size cannot more than 5MB');
+      return;
     }
 
     setselectedFile(event.target.files[0]);

@@ -37,7 +37,6 @@ const Auth = ({ positions }) => {
     position: '',
     phone: '',
     position_id: 1,
-    // registration_timestamp: new Date().getTime(),
   });
   useEffect(() => {
     getToken().then(res => {
@@ -98,11 +97,11 @@ const Auth = ({ positions }) => {
               name="name"
               pattern="[a-zA-Z]{2,}"
               placeholder="Name"
+              minLength="2"
+              maxLength="100"
             />
             <input
               required
-              minLength="2"
-              maxLength="100"
               value={updatedUser.email}
               className="form_input"
               type="email"
@@ -121,11 +120,11 @@ const Auth = ({ positions }) => {
               required
               value={updatedUser.phone}
               onChange={handleChange}
-              type="number"
+              type="tel"
               min="12"
               name="phone"
               className="form_input"
-              placeholder="Phone"
+              placeholder="+38(XXX)XXX-XX-XX"
             />
             {errorPhone ? (
               <h2 className="error" style={style}>
