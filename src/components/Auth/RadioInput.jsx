@@ -7,11 +7,12 @@ export const RadioInput = ({ name, id, selectedOption }) => {
       <input
         required
         className="form_positions_item-input"
-        key={id}
         type="radio"
-        name="positions"
+        name="position_id"
         value={name}
         id={id}
+        data-position={name}
+        data-id={id}
         defaultChecked={selectedOption === { name }}
       />
       <label data-position={name} className="form_positions_label" htmlFor={id} data-id={id}>

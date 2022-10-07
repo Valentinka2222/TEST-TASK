@@ -8,6 +8,7 @@ import {
   validatePhoneNumber,
   validateEmail,
   validatePositionId,
+  validateName,
 } from '../../validators/validators';
 import RadioInput from './RadioInput';
 import FormLoadFile from './FormLoadFile';
@@ -30,6 +31,7 @@ const Auth = ({ positions }) => {
   const [errorEmail, setErrorEmail] = useState(null);
   const [errorPhone, setErrorPhone] = useState(null);
   const [token, setToken] = useState('');
+  const [selectedFile, setselectedFile] = useState('');
   const [updatedUser, setUpdatedUser] = useState({
     photo: '',
     name: '',
@@ -42,13 +44,18 @@ const Auth = ({ positions }) => {
     getToken().then(res => {
       saveToken(res.token);
       setToken(localStorage.tokenData);
-      console.log(localStorage.tokenData);
     });
   }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
-    сreateUser(updatedUser, token);
+    const formData = new FormData();
+    formData.append('name', updatedUser.name);
+    formData.append('photo', updatedUser.photo);
+    formData.append('email', updatedUser.email);
+    formData.append('position_id', updatedUser.position_id);
+    formData.append('phone', updatedUser.phone);
+    сreateUser(formData, token);
   };
 
   const handleChange = event => {
@@ -63,6 +70,8 @@ const Auth = ({ positions }) => {
       setErrorPhone('Error phone');
     } else if (name === 'email' && !validateEmail(value)) {
       setErrorEmail('Error email');
+    } else if (name === 'name' && !validateName(value)) {
+      setErrorEmail('Error name');
     } else {
       setErrorEmail(null);
       setErrorPhone(null);
@@ -78,15 +87,49 @@ const Auth = ({ positions }) => {
     setUpdatedUser({
       ...updatedUser,
       position: position,
-      position_id: id,
+      position_id: Number(id),
     });
   };
 
+  const onChange = event => {
+    event.preventDefault();
+
+    if (!event.target.files[0].name.match(/\.(jpg|jpeg)$/)) {
+      alert('FileReader don"t support');
+      return;
+    }
+    if (!FileReader) {
+      alert('FileReader don"t support');
+      return;
+    }
+    if (!event.target.files.length) {
+      alert('Nothing download');
+    }
+
+    if (!event.target.files[0].size > 5242880) {
+      alert('File size cannot more than 5MB');
+      return false;
+    }
+    setselectedFile(event.target.files[0].name);
+    setUpdatedUser({
+      ...updatedUser,
+      photo: event.target.files[0].name,
+    });
+    event.target.files.onload = function () {
+      let height = this.height;
+      let width = this.width;
+      if (height < 70 || width < 70) {
+        alert('Height and Width most not be less 70px');
+        return false;
+      }
+    };
+  };
+  console.log(updatedUser);
   return (
     <footer className="footer">
       <h1 className="title">Working with POST request</h1>
       <div className="footer__form-group">
-        <form id="form" method="post" className="form" onSubmit={handleSubmit}>
+        <form id="form" action="true" method="post" className="form" onSubmit={handleSubmit}>
           <div className="form__group">
             <input
               required
@@ -95,10 +138,10 @@ const Auth = ({ positions }) => {
               className="form_input"
               type="text"
               name="name"
-              pattern="[a-zA-Z]{2,}"
+              // pattern="[a-zA-Z]{2,60}"
               placeholder="Name"
               minLength="2"
-              maxLength="100"
+              maxLength="60"
             />
             <input
               required
@@ -106,8 +149,10 @@ const Auth = ({ positions }) => {
               className="form_input"
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder="email@example.com"
               onChange={handleChange}
+              minLength="2"
+              maxLength="100"
             />
 
             {errorEmail && (
@@ -122,6 +167,7 @@ const Auth = ({ positions }) => {
               onChange={handleChange}
               type="tel"
               min="12"
+              pattern="^[\+]{0,1}380([0-9]{9})$"
               name="phone"
               className="form_input"
               placeholder="+38(XXX)XXX-XX-XX"
@@ -142,7 +188,13 @@ const Auth = ({ positions }) => {
               <RadioInput key={position.id} {...position} selectedOption={selectedOption} />
             ))}
           </div>
-          <FormLoadFile setUpdatedUser={setUpdatedUser} />
+          <FormLoadFile
+            selectedFile={selectedFile}
+            onChange={onChange}
+            handleOnClick={handleOnClick}
+            setUpdatedUser={setUpdatedUser}
+            updatedUser={updatedUser}
+          />
           <input required id="register" type="submit" className="form-submit__btn btn"></input>
         </form>
       </div>

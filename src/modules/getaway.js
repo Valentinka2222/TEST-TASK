@@ -54,14 +54,14 @@ export const getToken = async () =>
     });
 
 export const сreateUser = (formData, token) => {
-  return fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
+  return fetch(`${baseUrl}/users`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'multipart/form-data,boundary="boundary",application/json',
+      // 'Content-Type': 'application/json',
       Token: token,
     },
 
-    body: JSON.stringify(formData),
+    body: formData,
   })
     .then(function (response) {
       saveToken(token);

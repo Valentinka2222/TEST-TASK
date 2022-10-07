@@ -10,9 +10,13 @@ export function validatePhoneNumber(tel) {
   const re = /^[\+]{0,1}380([0-9]{9})$/;
   return re.test(tel);
 }
+export function validateName(name) {
+  const re = /^[a-zA-Z].{2,60}$/;
+  return re.test(name);
+}
 export function validatePositionId(num) {
   if (!Number.isInteger(num) && num < 1) {
-    return;
+    return false;
   }
   return num;
 }
